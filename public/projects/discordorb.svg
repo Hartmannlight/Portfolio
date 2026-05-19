@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-label="DiscordOrb Lichtstatus">
+  <defs>
+    <radialGradient id="orb" cx="50%" cy="42%" r="55%">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.35" stop-color="#8ec6ff"/>
+      <stop offset="1" stop-color="#4761ff"/>
+    </radialGradient>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#25313d"/>
+      <stop offset="1" stop-color="#111820"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="url(#bg)"/>
+  <circle cx="392" cy="244" r="142" fill="url(#orb)" opacity="0.96"/>
+  <circle cx="392" cy="244" r="188" fill="#6a7cff" opacity="0.14"/>
+  <circle cx="392" cy="244" r="228" fill="#6a7cff" opacity="0.08"/>
+  <rect x="268" y="374" width="248" height="44" rx="22" fill="#0c1116"/>
+  <rect x="314" y="404" width="156" height="18" rx="9" fill="#070a0d"/>
+  <g stroke="#ff930f" stroke-width="8" stroke-linecap="round" fill="none">
+    <path d="M160 172h70"/>
+    <path d="M572 172h70"/>
+    <path d="M154 308h82"/>
+    <path d="M566 308h82"/>
+  </g>
+</svg>

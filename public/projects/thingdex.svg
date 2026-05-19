@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-label="Thingdex Inventar Dashboard">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#263844"/>
+      <stop offset="1" stop-color="#11191f"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#122334"/>
+      <stop offset="1" stop-color="#071017"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="520" fill="url(#bg)"/>
+  <rect x="120" y="88" width="560" height="330" rx="18" fill="#111820" stroke="#425464" stroke-width="4"/>
+  <rect x="146" y="116" width="508" height="274" rx="10" fill="url(#screen)"/>
+  <rect x="174" y="148" width="128" height="20" rx="8" fill="#ff930f"/>
+  <rect x="174" y="188" width="244" height="18" rx="8" fill="#49606f"/>
+  <rect x="174" y="228" width="196" height="18" rx="8" fill="#334957"/>
+  <rect x="174" y="268" width="274" height="18" rx="8" fill="#334957"/>
+  <g fill="none" stroke-width="10" stroke-linecap="round">
+    <path d="M480 332V212" stroke="#253848"/>
+    <path d="M530 332V176" stroke="#253848"/>
+    <path d="M580 332V248" stroke="#253848"/>
+    <path d="M480 332v-84" stroke="#ff930f"/>
+    <path d="M530 332V206" stroke="#4cc9a9"/>
+    <path d="M580 332v-52" stroke="#7aa6ff"/>
+  </g>
+  <rect x="302" y="418" width="196" height="18" rx="9" fill="#0c1217"/>
+  <rect x="240" y="438" width="320" height="18" rx="9" fill="#0a0f13"/>
+</svg>

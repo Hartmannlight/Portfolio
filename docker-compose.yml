@@ -1,0 +1,7 @@
+services:
+  portfolio:
+    image: ghcr.io/hartmannlight/portfolio:latest
+    container_name: portfolio
+    restart: unless-stopped
+    ports:
+      - "${PORT:-4173}:4173"
