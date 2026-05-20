@@ -1,0 +1,70 @@
+﻿---
+title: "HomeLab Infrastructure"
+---
+
+## Überblick
+
+Dieses Projekt beschreibt mein selbst entwickeltes HomeLab- und Infrastruktur-Setup, das über mehrere Server, Netzwerkgeräte und Container-Stacks verteilt ist. Ziel war der Aufbau einer modularen und zentral verwaltbaren Infrastruktur für Selfhosting, Netzwerkmanagement, Monitoring und Automatisierung.
+
+Das System kombiniert klassische Netzwerk- und Servertechnik mit modernen Container- und Observability-Konzepten. Dabei habe ich nicht nur einzelne Dienste betrieben, sondern eine vollständige Betriebs- und Deploymentstruktur entworfen, die langfristig wartbar und erweiterbar bleibt.
+
+Zum HomeLab gehören unter anderem Proxmox-Server, Docker-Stacks, Monitoring-Systeme, Reverse-Proxy-Infrastruktur, Pi-hole, OpenWrt-Access-Points, NAS-Funktionen, zentrale Logging-Systeme und automatisierte Betriebsabläufe.
+
+## Technologien
+
+- Docker & Docker Compose
+- Proxmox VE
+- Linux Server Administration
+- Traefik
+- Grafana
+- Prometheus
+- Loki
+- Alloy
+- Alertmanager
+- OpenWrt
+- Pi-hole
+- Samba
+- Watchtower
+- REST-basierte Infrastruktur-Dienste
+- Netzwerk- und VLAN-Konzepte
+- Reverse Proxy & Routing
+- Monitoring & Observability
+
+## Technische Details
+
+Die Infrastruktur basiert auf mehreren zentralen Docker-Stacks mit klar definierten Regeln für Struktur, Netzwerke, Secrets und Deployments. Dabei wurde ein eigenes Infrastruktur-Layout mit getrennten Bereichen für Anwendungen, Infrastruktur, gemeinsame Ressourcen und Betriebsdokumentation entwickelt.
+
+Ein Schwerpunkt lag auf:
+
+- modularer Container-Architektur
+- reproduzierbaren Deployments
+- zentralem Monitoring
+- automatisierten Updates
+- sauberer Trennung von Secrets, Konfiguration und Laufzeitdaten
+- internen Reverse-Proxy-Strukturen mit Traefik
+- zentraler Netzwerkverwaltung
+- Langzeit-Monitoring und Logging
+- Dokumentation und Betriebsrichtlinien
+
+Zusätzlich wurde ein vollständiges Monitoring-System aufgebaut, das unter anderem Host-Metriken, Docker-Container, Netzwerkgeräte, OpenWrt-Access-Points, SMART-Daten von Festplatten, DNS-Dienste und Router-Metriken überwacht.
+
+Das Netzwerk selbst besteht aus mehreren Access-Points, zentralen Switches, PoE-Infrastruktur und verschiedenen internen Serverdiensten. Viele Komponenten wurden speziell auf Energieeffizienz, Wartbarkeit und langfristige Stabilität optimiert.
+
+Ein weiterer Fokus lag auf der Entwicklung einer konsistenten Betriebsstruktur für neue Dienste und Container-Stacks. Dafür wurden eigene Richtlinien, Deployment-Standards und Betriebsjournale definiert.
+
+## Herausforderungen
+
+Eine der größten Herausforderungen bestand darin, die gesamte Infrastruktur langfristig wartbar und nachvollziehbar zu gestalten. Statt nur einzelne Dienste zum Laufen zu bringen, wurde besonderer Wert auf Architektur, Dokumentation und saubere Betriebsprozesse gelegt.
+
+Weitere Herausforderungen waren:
+
+- Aufbau eines stabilen und zentralisierten Monitorings
+- sichere Verwaltung von Secrets und Konfigurationen
+- konsistente Docker- und Netzwerkstruktur
+- Integration unterschiedlicher Hardware und Dienste
+- automatisierte Update- und Alerting-Prozesse
+- Energie- und Storage-Management
+- zuverlässige interne DNS- und Routing-Strukturen
+- Kombination klassischer Netzwerktechnik mit moderner Container-Infrastruktur
+
+Das Projekt entwickelt sich kontinuierlich weiter und dient gleichzeitig als Lern-, Entwicklungs- und Produktionsumgebung für weitere Software- und Infrastrukturprojekte.

@@ -1,86 +1,100 @@
-export const projects = [
+﻿export const projects = [
   {
-    title: "Thingdex",
-    slug: "thingdex",
+    title: "Thingdex Home Inventory",
+    slug: "thingdex-home-inventory",
     category: "software",
     eyebrow: "Informatik",
-    subtitle: "Inventarsystem mit Barcode-Fokus",
+    subtitle: "Modulares Inventarsystem für Haushalt, Lagerorte und Scanner-Workflows",
     shortDescription:
-      "Logistisches Haushaltsinventar fuer Lagerorte, Objekte und schnelle Erfassung per Scanner.",
-    image: "/public/projects/thingdex.svg",
-    tags: ["FastAPI", "PostgreSQL", "React", "Docker"],
+      "Selbst gehostetes Inventarsystem zur Verwaltung von Gegenständen, Lagerorten, Beziehungen und Label-Reprints im Haushalt.",
+    image: "/public/projects/thingdex-home-inventory.png",
+    tags: ["FastAPI", "PostgreSQL", "React", "TypeScript", "OpenAPI", "Docker", "JSONB"],
     date: "2026",
     featured: true,
-    github: "https://github.com/"
+    github: "https://github.com/Hartmannlight/Thingdex-Home-Inventory"
   },
   {
-    title: "WLED PWM Shield",
-    slug: "wled-pwm-shield",
+    title: "WLED 6-Channel PWM Shield",
+    slug: "wled-6-channel-pwm-shield",
     category: "electronics",
     eyebrow: "Elektrotechnik",
-    subtitle: "ESP32 Shield fuer LED-Steuerung",
+    subtitle: "6-Kanal-PWM-Treiberplatine für LED-Streifen",
     shortDescription:
-      "Modulares PCB fuer WLED-Installationen mit stabiler PWM-Ausgabe und sauberer Verdrahtung.",
-    image: "/public/projects/wled-pwm-shield.svg",
-    tags: ["ESP32", "KiCad", "PWM", "WLED"],
+      "ESP32-S3-basiertes PWM-MOSFET-Shield zur Ansteuerung von 12-V-LED-Streifen mit sechs separat abgesicherten Kanälen.",
+    image: "/public/projects/wled-6-channel-pwm-shield.png",
+    tags: ["KiCad", "PCB Design", "ESP32-S3", "PWM", "MOSFET", "12 V"],
     date: "2025",
     featured: true,
-    github: "https://github.com/"
+    github: ""
   },
   {
-    title: "DiscordOrb",
-    slug: "discordorb",
+    title: "PrintHub / zplgrid",
+    slug: "printhub-zplgrid",
     category: "software",
     eyebrow: "Informatik",
-    subtitle: "Statuslicht fuer Discord",
+    subtitle: "Render-, Preview- und Druckservice für ZPL-II-Labels",
     shortDescription:
-      "Kleine App mit Hardware-Anbindung, die Praesenz und Ereignisse als Lichtsignale visualisiert.",
-    image: "/public/projects/discordorb.svg",
-    tags: ["TypeScript", "WebSocket", "Electron", "ESP"],
+      "Backend-System, das JSON-Labeltemplates in ZPL II kompiliert, Vorschauen erzeugt und Druckjobs an Zebra-kompatible Drucker sendet.",
+    image: "/public/projects/printhub-zplgrid.png",
+    tags: ["Python", "FastAPI", "ZPL II", "JSON Schema", "Label Printing"],
+    date: "2026",
+    featured: true,
+    github: "https://github.com/Hartmannlight/PrintHub-ZPL-ll"
+  },
+  {
+    title: "ARMURO Mobile Robot",
+    slug: "armuro-mobile-robot",
+    category: "electronics",
+    eyebrow: "Elektrotechnik",
+    subtitle: "Aufbau und Programmierung eines autonomen Mikrocontroller-Roboters",
+    shortDescription:
+      "Aufbau, Inbetriebnahme und Programmierung eines mobilen Roboters mit Sensorik, Motorsteuerung und reaktivem Fahrverhalten.",
+    image: "/public/projects/armuro-mobile-robot.jpg",
+    tags: ["C", "Microcontroller", "Embedded Systems", "Robotik", "Sensorik", "Elektronik"],
     date: "2025",
     featured: true,
-    github: "https://github.com/"
+    github: ""
   },
   {
-    title: "Wetterstation",
-    slug: "wetterstation",
-    category: "electronics",
-    eyebrow: "Elektrotechnik",
-    subtitle: "IoT-Sensorik mit Dashboard",
-    shortDescription:
-      "Sensorplattform fuer Temperatur, Luftfeuchte und Luftdruck mit WLAN-Uebertragung.",
-    image: "/public/projects/wetterstation.svg",
-    tags: ["ESP8266", "MQTT", "Sensorik", "OLED"],
-    date: "2024",
-    featured: false,
-    github: "https://github.com/"
-  },
-  {
-    title: "TaskFlow",
-    slug: "taskflow",
+    title: "LabelArchitect",
+    slug: "labelarchitect",
     category: "software",
     eyebrow: "Informatik",
-    subtitle: "Web-App fuer Projektmanagement",
+    subtitle: "Visueller Editor für zplgrid-Labeltemplates",
     shortDescription:
-      "Planung, Verwaltung und Auswertung von Projekten mit klarer Aufgabenstruktur.",
-    image: "/public/projects/taskflow.svg",
-    tags: ["React", "Node.js", "SQLite", "UI"],
-    date: "2024",
-    featured: false,
-    github: "https://github.com/"
+      "Web-Editor zum Entwerfen von Label-Layouts als JSON-Templates, die anschließend vom Backend gerendert und gedruckt werden.",
+    image: "/public/projects/labelarchitect.svg",
+    tags: ["React", "TypeScript", "Vite", "Zustand", "Zod", "zplgrid"],
+    date: "2026",
+    featured: true,
+    github: "https://github.com/Hartmannlight/LabelArchitect"
   },
   {
-    title: "Line Follower Robot",
-    slug: "line-follower-robot",
+    title: "Pool Remote Control",
+    slug: "pool-remote-control",
     category: "electronics",
     eyebrow: "Elektrotechnik",
-    subtitle: "Autonomer Roboter",
+    subtitle: "Batteriebetriebene ESP32-Fernbedienung für OpenHAB",
     shortDescription:
-      "Roboterplattform, die Linien erkennt, Motoren regelt und Hindernisse auswertet.",
-    image: "/public/projects/line-follower-robot.svg",
-    tags: ["Arduino", "PID", "Motor Driver", "IR"],
-    date: "2023",
-    featured: false,
-    github: "https://github.com/"
+      "Kleine ESP32-Fernbedienung mit OLED-Display zur Anzeige von Pool- und Temperaturwerten sowie zum Schalten der Filteranlage.",
+    image: "/public/projects/pool-remote-control.png",
+    tags: ["ESP32", "Arduino", "OpenHAB", "OLED", "HTTP", "OTA"],
+    date: "2022",
+    featured: true,
+    github: "https://github.com/Hartmannlight/Pool-remote-control"
+  },
+  {
+    title: "HomeLab Infrastructure",
+    slug: "homelab-infrastructure",
+    category: "software",
+    eyebrow: "Informatik",
+    subtitle: "Server-, Netzwerk- und Monitoring-Infrastruktur",
+    shortDescription:
+      "Eigenes HomeLab mit Proxmox, Docker, zentralem Monitoring, OpenWrt-Netzwerk und automatisierter Infrastrukturverwaltung.",
+    image: "/public/projects/homelab-infrastructure.svg",
+    tags: ["Docker", "Linux", "Proxmox", "Traefik", "Grafana", "Prometheus", "OpenWrt"],
+    date: "2026",
+    featured: true,
+    github: ""
   }
 ];

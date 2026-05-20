@@ -1,0 +1,54 @@
+﻿---
+title: "LabelArchitect"
+---
+
+## Überblick
+
+LabelArchitect ist ein visueller Web-Editor zum Erstellen von zplgrid-Templates. Ziel des Projekts ist es, Label-Layouts komfortabel im Browser zu entwerfen, ohne direkt ZPL-II-Code schreiben zu müssen.
+
+Der Editor erzeugt strukturierte JSON-Templates. Diese werden anschließend von PrintHub / zplgrid gerendert, als Vorschau angezeigt, gespeichert oder an einen Druck-Workflow übergeben.
+
+Damit ist LabelArchitect der Authoring-Teil des Label-Systems: Hier entsteht das Layout, während Rendering, Preview und physischer Druck bewusst im Backend bleiben.
+
+## Technologien
+
+- React
+- TypeScript
+- Vite
+- Zustand
+- Zod
+- HTML Canvas / DOM-Layout
+- REST API Integration
+- zplgrid Template-JSON
+
+## Technische Details
+
+Der Editor besteht aus drei zentralen Bereichen:
+
+- links eine Baumansicht der Layout-Knoten
+- in der Mitte ein Canvas-Editor mit Label-Vorschau
+- rechts ein Properties-Panel für Knoten, Elemente, Defaults und Variablen
+
+Das State-Management läuft über Zustand. Undo und Redo werden über immutable Operationen umgesetzt. Templates, Preview-Einstellungen, Variablen und UI-Einstellungen können lokal im Browser gespeichert werden.
+
+Das Datenmodell orientiert sich direkt am zplgrid-Templateformat. Ein Template besteht aus einem Layout-Baum mit Split- und Leaf-Knoten. Jedes Leaf enthält in Version 1 genau ein Element.
+
+Unterstützte Elemente sind:
+
+- Text
+- QR-Code
+- DataMatrix
+- Bild
+- Linie
+
+Der Editor erkennt Platzhalter wie `{asset_id}` automatisch und zeigt sie als benötigte Variablen an. Makros wie Zeitstempel oder Counter werden als vom Backend befüllbare Werte behandelt.
+
+Für die Backend-Integration nutzt der Editor Endpunkte für Templates, Render-Preview und Drafts. Ein typischer Workflow ist: Template entwerfen, Variablen prüfen, Preview erzeugen, Template speichern oder einen Draft für den Druck erstellen.
+
+## Herausforderungen
+
+Eine wichtige Herausforderung war die Abbildung eines millimetergenauen Label-Layouts in einer interaktiven Weboberfläche. Das visuelle Layout muss für Nutzer intuitiv wirken, gleichzeitig aber exakt genug sein, um später verlässlich auf einem Etikettendrucker zu funktionieren.
+
+Dazu kommt die Synchronisierung zwischen Baumstruktur, Canvas-Auswahl, Properties-Panel, Validierung und Preview. Änderungen am Layout dürfen die stabilen Node-IDs nicht unnötig verändern, damit Auswahl und UI-Zustand nachvollziehbar bleiben.
+
+Weitere Herausforderungen waren Undo/Redo, Import und Export von JSON, Schema-Validierung, Variablen-Erkennung sowie die Trennung zwischen lokaler Layout-Vorschau und echter Backend-Preview.
