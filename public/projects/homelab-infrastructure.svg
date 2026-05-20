@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-labelledby="title desc">
+  <title id="title">HomeLab infrastructure diagram</title>
+  <desc id="desc">Stylized servers, network paths and monitoring graphs.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#eef3ec"/>
+      <stop offset="1" stop-color="#cad7d1"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="640" fill="url(#bg)"/>
+  <path d="M220 190h520M280 320h400M220 450h520" stroke="#24443e" stroke-width="10" stroke-linecap="round" opacity=".35"/>
+  <path d="M480 190v260M320 190v260M640 190v260" stroke="#24443e" stroke-width="10" stroke-linecap="round" opacity=".35"/>
+  <rect x="146" y="126" width="188" height="128" rx="16" fill="#15211f"/>
+  <rect x="386" y="126" width="188" height="128" rx="16" fill="#15211f"/>
+  <rect x="626" y="126" width="188" height="128" rx="16" fill="#15211f"/>
+  <rect x="146" y="386" width="188" height="128" rx="16" fill="#15211f"/>
+  <rect x="386" y="386" width="188" height="128" rx="16" fill="#15211f"/>
+  <rect x="626" y="386" width="188" height="128" rx="16" fill="#15211f"/>
+  <g fill="#e8efe5">
+    <rect x="180" y="164" width="120" height="16" rx="8"/>
+    <rect x="180" y="200" width="84" height="16" rx="8"/>
+    <rect x="420" y="164" width="120" height="16" rx="8"/>
+    <rect x="420" y="200" width="84" height="16" rx="8"/>
+    <rect x="660" y="164" width="120" height="16" rx="8"/>
+    <rect x="660" y="200" width="84" height="16" rx="8"/>
+    <rect x="180" y="424" width="120" height="16" rx="8"/>
+    <rect x="180" y="460" width="84" height="16" rx="8"/>
+    <rect x="420" y="424" width="120" height="16" rx="8"/>
+    <rect x="420" y="460" width="84" height="16" rx="8"/>
+    <rect x="660" y="424" width="120" height="16" rx="8"/>
+    <rect x="660" y="460" width="84" height="16" rx="8"/>
+  </g>
+  <circle cx="480" cy="320" r="74" fill="#f1efe2" stroke="#c96f3f" stroke-width="12"/>
+  <path d="M438 334l26-38 34 24 30-54" fill="none" stroke="#24443e" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="480" cy="320" r="12" fill="#c96f3f"/>
+</svg>

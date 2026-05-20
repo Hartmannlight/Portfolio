@@ -1,0 +1,34 @@
+﻿---
+title: "Pool Remote Control"
+---
+
+## Überblick
+
+Pool Remote Control ist eine batteriebetriebene Fernbedienung auf Basis eines ESP32-WROOM-32D. Das Gerät ruft Werte aus OpenHAB 3 per HTTP ab und zeigt sie auf einem SSD1306-OLED-Display an. Über zwei Tasten kann zwischen verschiedenen Temperaturwerten gewechselt und eine OpenHAB-Komponente, zum Beispiel die Pool-Filteranlage, ein- und ausgeschaltet werden.
+
+Das Projekt verbindet Smart-Home-Automatisierung mit einer kleinen, eigenständigen Hardware-Bedienoberflaeche für den Poolbereich.
+
+## Technologien
+
+- ESP32-WROOM-32D
+- Arduino / C++
+- OpenHAB 3
+- HTTP REST API
+- SSD1306 OLED-Display
+- Button2
+- NTP-Zeitsynchronisation
+- OTA-Update
+
+## Technische Details
+
+Die Hardware besteht aus einem ESP32, einem SSD1306-OLED-Display und zwei Tastern. Es wurde keine eigene Leiterplatte verwendet; die Komponenten sind direkt miteinander verdrahtet. Der ESP32 verbindet sich per WLAN mit einer statischen IP-Adresse und fragt über die OpenHAB-REST-API verschiedene Werte ab.
+
+Angezeigt werden unter anderem Pooltemperatur, Außentemperatur und weitere Temperaturstationen. Zusätzlich wird der Zustand der Pool-Filteranlage angezeigt. Ein Taster dient zur Navigation zwischen den angezeigten Werten, der andere Taster schaltet die Filteranlage über einen HTTP-POST an oder aus.
+
+Das Gerät nutzt außerdem NTP zur Zeitanzeige und bietet OTA-Updates über einen kleinen Webserver, sodass neue Firmware-Versionen ohne physisches Anschließen übertragen werden können.
+
+## Herausforderungen
+
+Eine zentrale Herausforderung war die Verbindung aus Smart-Home-API, batteriebetriebener Hardware und einfacher Bedienung. Das Gerät sollte schnell starten, Werte zuverlässig anzeigen und mit nur zwei Tasten verständlich bedienbar bleiben.
+
+Zusätzlich musste die Anzeige so reduziert werden, dass relevante Informationen wie Temperatur, Ort und Filterstatus auf dem kleinen OLED-Display gut lesbar bleiben. Da das Projekt stark auf die eigene OpenHAB-Umgebung angepasst ist, war außerdem eine klare Trennung zwischen Konfiguration, API-Endpunkten und Programmlogik wichtig.

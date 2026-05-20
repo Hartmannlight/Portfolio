@@ -1,4 +1,4 @@
-import { projects } from "./data/projects.js";
+﻿import { projects } from "./data/projects.js";
 
 const app = document.querySelector("#app");
 const themeKey = "portfolio-theme";
@@ -88,7 +88,6 @@ function navbar() {
       </a>
       <nav class="main-nav" aria-label="Hauptnavigation">
         <a href="/#projects">Projekte</a>
-        <a href="/public/lebenslauf.pdf" target="_blank" rel="noreferrer">Lebenslauf</a>
         <button class="theme-toggle" type="button" aria-label="Theme wechseln">
           ${themeIcon()}
         </button>
@@ -105,7 +104,7 @@ function projectCard(project, index) {
     <article class="timeline-item timeline-item--${side} timeline-item--${project.category}">
       <a class="project-card" href="/projects/${project.slug}" data-link>
         <div class="project-image">
-          <img src="${project.image}" alt="Vorschaubild fuer ${project.title}" loading="lazy" />
+          <img src="${project.image}" alt="Vorschaubild für ${project.title}" loading="lazy" />
         </div>
         <div class="project-copy">
           <div class="project-type project-type--${project.category}">
@@ -127,6 +126,46 @@ function projectCard(project, index) {
   `;
 }
 
+function projectActions(project) {
+  if (!project.github) {
+    return "";
+  }
+
+  return `
+    <div class="detail-actions">
+      <a class="primary-link" href="${project.github}" target="_blank" rel="noreferrer">
+        GitHub ${arrowIcon()}
+      </a>
+    </div>
+  `;
+}
+
+function noticeCard() {
+  return `
+    <article class="timeline-item timeline-item--right timeline-item--notice">
+      <div class="project-card notice-card">
+        <div class="notice-mark" aria-hidden="true">!</div>
+        <div class="project-copy">
+          <div class="project-type">
+            <span class="project-icon">${iconFor("software")}</span>
+            <span>Hinweis</span>
+          </div>
+          <h2>Diese Seite befindet sich im Aufbau</h2>
+          <p>
+            Einige Projekte sind bereits zu sehen. Schauen Sie gerne in einigen Tagen
+            nochmal vorbei, dann sind weitere Projekte ergänzt und die bestehenden
+            Einträge besser aufbereitet.
+          </p>
+        </div>
+      </div>
+      <svg class="project-connector" viewBox="0 0 100 48" preserveAspectRatio="none" aria-hidden="true">
+        <path d="${connectorPath("right")}" />
+      </svg>
+      <span class="timeline-node" aria-hidden="true"></span>
+    </article>
+  `;
+}
+
 function homePage() {
   return `
     ${navbar()}
@@ -138,9 +177,10 @@ function homePage() {
         </div>
       </section>
 
-      <section class="timeline-section" id="projects" aria-label="Projektuebersicht">
+      <section class="timeline-section" id="projects" aria-label="Projektübersicht">
         <div class="timeline-rail" aria-hidden="true"></div>
         <div class="timeline">
+          ${noticeCard()}
           ${projects.map(projectCard).join("")}
         </div>
       </section>
@@ -266,13 +306,13 @@ async function projectPage(slug) {
     }
   } catch {
     body =
-      "<p>Der Markdown-Inhalt ist nur ueber den lokalen Server oder ein Hosting mit statischen Dateien verfuegbar.</p>";
+      "<p>Der Markdown-Inhalt ist nur über den lokalen Server oder ein Hosting mit statischen Dateien verfügbar.</p>";
   }
 
   return `
     ${navbar()}
     <main class="project-detail">
-      <a class="back-link" href="/" data-link>${arrowIcon()} Zurueck zu den Projekten</a>
+      <a class="back-link" href="/" data-link>${arrowIcon()} Zurück zu den Projekten</a>
       <section class="detail-hero">
         <div class="detail-copy">
           <div class="project-type project-type--${project.category}">
@@ -281,14 +321,10 @@ async function projectPage(slug) {
           </div>
           <h1>${project.title}</h1>
           <p>${project.shortDescription}</p>
-          <div class="detail-actions">
-            <a class="primary-link" href="${project.github}" target="_blank" rel="noreferrer">
-              GitHub ${arrowIcon()}
-            </a>
-          </div>
+          ${projectActions(project)}
         </div>
         <div class="detail-image">
-          <img src="${project.image}" alt="Hero-Bild fuer ${project.title}" />
+          <img src="${project.image}" alt="Hero-Bild für ${project.title}" />
         </div>
       </section>
       <section class="detail-meta" aria-label="Projektmetadaten">
@@ -317,7 +353,7 @@ function notFoundPage() {
       <p class="kicker">404</p>
       <h1>Projekt nicht gefunden</h1>
       <p>Diese Projektseite existiert in den aktuellen Projektdaten nicht.</p>
-      <a class="primary-link" href="/" data-link>Zur Projektuebersicht ${arrowIcon()}</a>
+      <a class="primary-link" href="/" data-link>Zur Projektübersicht ${arrowIcon()}</a>
     </main>
   `;
 }

@@ -1,0 +1,55 @@
+﻿---
+title: "PrintHub / zplgrid"
+---
+
+## Überblick
+
+PrintHub / zplgrid ist ein Render- und Druckservice für ZPL-II-Labels. Das Projekt übersetzt strukturierte JSON-Templates in druckerfertigen ZPL-II-Code und stellt dafür eine FastAPI-basierte Schnittstelle bereit.
+
+Im Mittelpunkt steht die Trennung zwischen Layoutbeschreibung und konkreter Druckausgabe: Labels werden nicht direkt als ZPL geschrieben, sondern als JSON-Template mit Größen, Layout-Knoten, Elementen und Variablen beschrieben. Das Backend kompiliert daraus später den finalen ZPL-II-Code.
+
+Zusätzlich bietet das System Funktionen für PNG-Vorschauen, Template-Speicherung, Drafts, Drucker-Konfigurationen und direkte Druckjobs.
+
+## Technologien
+
+- Python
+- FastAPI
+- ZPL II
+- JSON Schema
+- YAML-Konfiguration
+- Labelary-Preview
+- Netzwerkdruck über TCP 9100
+
+## Technische Details
+
+Das Kernmodell basiert auf einem binären Split-Layout. Ein Template besteht aus Split- und Leaf-Knoten. Split-Knoten teilen eine Fläche horizontal oder vertikal, Leaf-Knoten enthalten jeweils ein konkretes Element.
+
+Unterstützte Elemente sind:
+
+- Text
+- QR-Code
+- DataMatrix
+- Linie
+- Bild
+
+Alle physischen Maße werden in Millimetern angegeben. Für den Render-Vorgang wird zusätzlich ein Ziel mit Labelbreite, Labelhöhe, DPI und Ursprung definiert.
+
+Die API stellt unter anderem Endpunkte für folgende Bereiche bereit:
+
+- Rendern nach ZPL
+- Rendern nach PNG
+- Speichern und Laden von Templates
+- Draft-Erstellung für Print-Workflows
+- Drucker-Konfiguration
+- Druckerstatus
+- Direkter Druck von ZPL oder Template-basierten Labels
+
+Variablen werden über Platzhalter wie `{name}` eingebunden. Zusätzlich gibt es eingebaute Makros für Zeitstempel, UUIDs, Draft-IDs, Printer-IDs und Zähler.
+
+## Herausforderungen
+
+Eine zentrale Herausforderung war die saubere Abstraktion zwischen visuellem Layout und hardware-nahem ZPL-II-Code. Das Template-Format sollte für Frontends gut bearbeitbar sein, ohne dass die UI selbst ZPL kennen muss.
+
+Schwierig war außerdem die genaue Umrechnung von Millimetern in druckerspezifische Punkte, der Umgang mit DPI, Padding, Guttern, Quiet Zones und verschiedenen Barcode-/Code-Typen.
+
+Weitere Herausforderungen waren die Validierung der Templates, sinnvolle Fehlermeldungen für Frontends, Preview-Erzeugung über externe Dienste und die Trennung zwischen Template-Speicherung, Drafts und echten Druckjobs.

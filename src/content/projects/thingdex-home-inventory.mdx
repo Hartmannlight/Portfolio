@@ -1,0 +1,64 @@
+﻿---
+title: "Thingdex Home Inventory"
+---
+
+## Überblick
+
+Thingdex Home Inventory ist ein selbst gehostetes Inventarsystem für den privaten Haushalt. Das Projekt bildet Gegenstände, Lagerorte, Behälter und technische Beziehungen zwischen Objekten als strukturiertes logistisches System ab.
+
+Der Fokus liegt nicht nur darauf, eine einfache Liste von Gegenständen zu speichern. Stattdessen soll das System reale Abläufe im Haushalt unterstützen: Gegenstände können in verschachtelten Lagerorten abgelegt, per Scanner gefunden, verschoben, miteinander verknüpft und bei Bedarf erneut mit Labels versehen werden.
+
+Das Projekt ist als modulares Ökosystem gedacht. Thingdex selbst bildet dabei den fachlichen Kern für Inventar, Standorte, Item-Typen, Beziehungen, Historie und Reprint-Workflows. Label-Design, Template-Verwaltung und physischer Druck sind bewusst in getrennte Projekte ausgelagert.
+
+## Technologien
+
+- FastAPI
+- PostgreSQL
+- SQLAlchemy
+- Alembic
+- React
+- TypeScript
+- OpenAPI
+- Docker
+- REST APIs
+- JSONB
+- QR- und Barcode-orientierte Workflows
+
+## Technische Details
+
+Der Kern des Systems besteht aus einem Backend für Inventardaten und einem scannerfreundlichen Web-Frontend für die tägliche Bedienung.
+
+Im Backend werden gemeinsame Eigenschaften wie Typ, Status, Standort und Beschreibung relational gespeichert. Flexible, typabhängige Eigenschaften liegen dagegen als JSONB-Daten in PostgreSQL. Dadurch können neue Item-Typen wie Netzteile, Kabel, Speichermedien, Werkzeuge oder Verbrauchsmaterialien über die Oberfläche definiert werden, ohne dafür jedes Mal eine Datenbankmigration schreiben zu müssen.
+
+Lagerorte werden als rekursive Hierarchie modelliert. Dadurch lassen sich reale Strukturen wie Haus, Zimmer, Regal, Kiste, Unterbox oder Fach mit beliebiger Tiefe abbilden. Ein Gegenstand muss beim Verschieben nur einem neuen Zielort zugeordnet werden; der vollständige Pfad ergibt sich automatisch aus der Standortstruktur.
+
+Zusätzlich unterstützt das System Beziehungen zwischen Gegenständen. Damit kann beispielsweise modelliert werden, dass ein Speichermedium in einem Server steckt, ein Kabel zu einem Gerät gehört oder ein Adapter Teil eines Netzteils ist. So bleibt nachvollziehbar, ob ein Objekt frei im Lager liegt oder gerade in Benutzung ist.
+
+Für veränderliche Messwerte oder Zustände gibt es eine feldbasierte Historie. Bei Item-Typen kann definiert werden, welche Eigenschaften historisiert werden sollen. Große oder versionierte Daten wie Dateisystem-Scans werden nicht als normale Eigenschaften gespeichert, sondern als Snapshots abgelegt.
+
+Die API ist contract-basiert aufgebaut. Das Backend stellt seinen OpenAPI-Contract bereit, aus dem ein TypeScript-SDK für Frontend-Consumer generiert werden kann. Dadurch bleiben Backend und Frontend enger synchronisiert und doppelte Typdefinitionen werden reduziert.
+
+## Architektur
+
+Thingdex Home Inventory besteht aus mehreren klar getrennten Verantwortlichkeiten:
+
+- Das Inventar-Backend verwaltet Locations, Item Types, Items, Relations, History, Snapshots und Label-Reprints.
+- Das Web-Frontend ist auf schnelle Alltagsabläufe mit Scanner, Tastatur und klaren Arbeitsflüssen ausgelegt.
+- Die Label- und Drucklogik wird über getrennte Projekte angebunden.
+- OpenAPI und lokale SDKs bilden die technische Vertragsgrenze zwischen Backend und Frontend.
+
+Ein typischer Workflow sieht so aus:
+
+- Ein Item-Typ wird definiert, zum Beispiel storage_drive, power_supply oder cable.
+- Ein konkreter Gegenstand wird mit typabhängigen Eigenschaften angelegt.
+- Der Gegenstand wird einem Lagerort zugeordnet.
+- Optional wird ein Label erzeugt oder später erneut gedruckt.
+- Per Scanner kann das Item gefunden, verschoben oder mit anderen Items verknüpft werden.
+
+## Herausforderungen
+
+Eine zentrale Herausforderung war die Datenmodellierung. Das System soll flexibel genug sein, um beliebige Haushaltsgegenstände abzubilden, aber trotzdem strukturierte Suche, Validierung und saubere API-Grenzen ermöglichen. Deshalb wurde eine Kombination aus relationalem Kernmodell und JSONB-basierten Eigenschaften gewählt.
+
+Eine weitere Herausforderung ist die Standortlogik. Reale Lagerorte sind nicht flach, sondern verschachtelt. Das System muss deshalb rekursive Strukturen abbilden, Standortpfade automatisch auflösen und Suchanfragen über ganze Teilbäume ermöglichen.
+
+Auch die Trennung zwischen Inventarverwaltung und Label-/Drucksystem ist ein wichtiger Architekturpunkt. Thingdex soll nicht selbst zum Label-Designer oder Druckserver werden. Stattdessen bleibt das Inventarsystem fachlich sauber und integriert sich nur über definierte APIs mit den separaten Label- und Print-Komponenten.

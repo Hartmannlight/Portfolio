@@ -1,0 +1,43 @@
+﻿---
+title: "WLED 6-Channel PWM Shield"
+---
+
+## Überblick
+
+Das WLED 6-Channel PWM Shield ist eine selbst entwickelte Treiberplatine zur Ansteuerung von 12-V-LED-Streifen. Ziel des Projekts war eine robuste, gut lötbare und erweiterbare PCB-Lösung mit sechs unabhängigen PWM-Kanälen, die jeweils über einen eigenen MOSFET geschaltet werden.
+
+Die Platine ist für den Einsatz mit einem ESP32-S3 vorgesehen und kann LED-Kanäle mit mehreren Ampere Laststrom schalten. Jeder Ausgang ist als eigener Kanal ausgeführt und besitzt eine klare Beschriftung, eine eigene Absicherung und eine Statusanzeige. Dadurch eignet sich das Board für größere LED-Installationen, WLED-Setups oder eigene Lichtsteuerungen mit mehreren getrennten LED-Zonen.
+
+Neben der MOSFET-Treiberstufe wurden praktische Zusatzfunktionen berücksichtigt, darunter ein Anschluss für einen DS18B20-Temperatursensor, ein I2C-Header sowie eine stabile 12-V-zu-3,3-V-Spannungsversorgung für den Mikrocontroller.
+
+## Technologien
+
+- KiCad
+- PCB Design
+- ESP32-S3
+- PWM
+- Logic-Level-MOSFETs
+- 12-V-LED-Streifen
+- DC-DC-Wandler
+- THT- und SMD-Bauteile
+- JLCPCB-Assembly
+- DS18B20
+- I2C
+
+## Technische Details
+
+Die Platine wurde als 6-Kanal-PWM-Treiberboard für LED-Streifen ausgelegt. Jeder Kanal verwendet einen logic-level N-Kanal-MOSFET, der direkt mit einem 3,3-V-PWM-Signal des ESP32-S3 angesteuert werden kann. Pro Kanal sind Gate-Widerstände und Pulldown-Widerstände vorgesehen, damit die MOSFETs sauber schalten und beim Start des Mikrocontrollers nicht unkontrolliert aktiv werden.
+
+Jeder Ausgang besitzt eine eigene Absicherung und eine Schraubklemme für den Anschluss der LED-Streifen. Zusätzlich gibt es Status-LEDs pro Kanal, damit der Zustand der Ausgänge auch direkt auf der Platine sichtbar ist.
+
+Die Eingangsstufe ist für eine 12-V-Versorgung ausgelegt und enthält eine Hochstrom-Schraubklemme, eine Hauptsicherung, eine Power-LED und Schutzbeschaltungen wie TVS-Diode und Verpolschutz. Für die Versorgung des ESP32-S3 wird ein effizienter DC-DC-Wandler verwendet, damit aus den 12 V eine stabile 3,3-V-Spannung erzeugt wird.
+
+Für externe Sensorik und Erweiterungen sind zusätzliche Anschlüsse vorgesehen. Dazu gehört ein DS18B20-Anschluss mit Pullup-Widerstand sowie ein I2C-Header mit SDA, SCL, 3,3 V und GND. Die Platine besitzt außerdem Montagebohrungen, klare Kanal- und Polaritätsbeschriftungen sowie ausreichend Puffer- und Keramikkondensatoren zur Stabilisierung der Versorgung.
+
+## Herausforderungen
+
+Eine zentrale Herausforderung war die Kombination aus hoher Strombelastbarkeit und einfacher Fertigbarkeit. Die Platine sollte mehrere Ampere pro Kanal schalten können, gleichzeitig aber noch gut von Hand lötbar bleiben und möglichst viele Standardbauteile verwenden.
+
+Besonders wichtig war die Auswahl geeigneter MOSFETs. Da der ESP32-S3 nur mit 3,3 V arbeitet, mussten MOSFETs verwendet werden, die bereits bei niedriger Gate-Spannung zuverlässig durchschalten.
+
+Auch die Stromführung im PCB-Layout war ein wichtiger Punkt. Bei mehreren LED-Kanälen mit jeweils bis zu 4 A entstehen hohe Ströme auf der Platine. Deshalb mussten Leiterbahnbreiten, Kupferflächen, Masseführung, Sicherungen und thermische Entlastung von Anfang an berücksichtigt werden.
