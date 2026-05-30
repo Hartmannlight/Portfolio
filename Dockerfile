@@ -1,17 +1,9 @@
-FROM node:22-alpine
+FROM caddy:2-alpine
 
-WORKDIR /app
+COPY Caddyfile /etc/caddy/Caddyfile
 
-ENV NODE_ENV=production
-ENV HOST=0.0.0.0
-ENV PORT=4173
-
-COPY package.json ./
-COPY index.html ./
-COPY scripts ./scripts
-COPY src ./src
-COPY public ./public
+COPY index.html /srv/index.html
+COPY src /srv/src
+COPY public /srv/public
 
 EXPOSE 4173
-
-CMD ["node", "scripts/dev-server.mjs"]

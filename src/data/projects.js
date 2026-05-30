@@ -7,7 +7,7 @@
     subtitle: "Modulares Inventarsystem für Haushalt, Lagerorte und Scanner-Workflows",
     shortDescription:
       "Selbst gehostetes Inventarsystem zur Verwaltung von Gegenständen, Lagerorten, Beziehungen und Label-Reprints im Haushalt.",
-    image: "/public/projects/thingdex-home-inventory.png",
+    image: "/public/projects/thingdex-home-inventory.webp",
     tags: ["FastAPI", "PostgreSQL", "React", "TypeScript", "OpenAPI", "Docker", "JSONB"],
     date: "2026",
     featured: true,
@@ -49,7 +49,7 @@
     subtitle: "Aufbau und Programmierung eines autonomen Mikrocontroller-Roboters",
     shortDescription:
       "Aufbau, Inbetriebnahme und Programmierung eines mobilen Roboters mit Sensorik, Motorsteuerung und reaktivem Fahrverhalten.",
-    image: "/public/projects/armuro-mobile-robot.jpg",
+    image: "/public/projects/armuro-mobile-robot.webp",
     tags: ["C", "Microcontroller", "Embedded Systems", "Robotik", "Sensorik", "Elektronik"],
     date: "2025",
     featured: true,
@@ -77,7 +77,7 @@
     subtitle: "Batteriebetriebene ESP32-Fernbedienung für OpenHAB",
     shortDescription:
       "Kleine ESP32-Fernbedienung mit OLED-Display zur Anzeige von Pool- und Temperaturwerten sowie zum Schalten der Filteranlage.",
-    image: "/public/projects/pool-remote-control.png",
+    image: "/public/projects/pool-remote-control.webp",
     tags: ["ESP32", "Arduino", "OpenHAB", "OLED", "HTTP", "OTA"],
     date: "2022",
     featured: true,
