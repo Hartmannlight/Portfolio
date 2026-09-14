@@ -48,7 +48,7 @@ jobs:
     - uses: Hartmannlight/pipeline-toolkit/actions/build@abb469f033ee28e00ba1061a47dddfc7d961129a
     - name: Runtime smoke test
       run: |
-        docker run -d --name candidate -p 127.0.0.1:8088:80 candidate:gate
+        docker run -d --name candidate -p 127.0.0.1:8088:4173 candidate:gate
         trap 'docker rm -f candidate' EXIT
         for attempt in {1..30}; do
           if curl --fail --silent http://127.0.0.1:8088/ >/dev/null; then exit 0; fi
