@@ -1,131 +1,90 @@
-name: Build and publish Docker image
-
-on:
+name: Container Release
+'on':
   push:
     branches:
-      - main
-  workflow_dispatch:
-  schedule:
-    - cron: "0 4 * * 1"
-
+    - main
+    tags:
+    - v*
+  pull_request: null
+  workflow_dispatch: null
 permissions:
   contents: read
-  issues: write
-  packages: write
-
-env:
-  IMAGE_NAME: ghcr.io/hartmannlight/portfolio
-
+concurrency:
+  group: container-release-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
-  checks:
+  validate:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Run project checks
-        run: npm run check
-
-      - name: Validate default Compose config
-        run: docker compose config
-
-      - name: Validate Traefik Compose config
-        run: PORTFOLIO_HOST=portfolio.example.com docker compose -f docker-compose.traefik.yml config
-
-      - name: Validate Caddy config
-        run: |
-          docker run --rm \
-            -v "$PWD/Caddyfile:/etc/caddy/Caddyfile:ro" \
-            caddy:2-alpine \
-            caddy validate --config /etc/caddy/Caddyfile
-
-  docker:
-    runs-on: ubuntu-latest
-    needs: checks
-
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+    - name: Run project checks
+      run: npm run check
+    - name: Validate default Compose config
+      run: docker compose config
+    - name: Validate Traefik Compose config
+      run: PORTFOLIO_HOST=portfolio.example.com docker compose -f docker-compose.traefik.yml config
+    - name: Validate Caddy config
+      run: |
+        docker run --rm \
+          -v "$PWD/Caddyfile:/etc/caddy/Caddyfile:ro" \
+          caddy:2-alpine \
+          caddy validate --config /etc/caddy/Caddyfile
+  container:
+    runs-on: ubuntu-24.04
+    needs: validate
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      attestations: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract Docker metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.IMAGE_NAME }}
-          tags: |
-            type=raw,value=latest,enable={{is_default_branch}}
-            type=sha,prefix=sha-
-
-      - name: Build and push
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: true
-          pull: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-
-  notify-failure:
-    runs-on: ubuntu-latest
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+    - uses: Hartmannlight/pipeline-toolkit/actions/build@abb469f033ee28e00ba1061a47dddfc7d961129a
+    - name: Runtime smoke test
+      run: |
+        docker run -d --name candidate -p 127.0.0.1:8088:80 candidate:gate
+        trap 'docker rm -f candidate' EXIT
+        for attempt in {1..30}; do
+          if curl --fail --silent http://127.0.0.1:8088/ >/dev/null; then exit 0; fi
+          sleep 1
+        done
+        docker logs candidate
+        exit 1
+    - uses: Hartmannlight/pipeline-toolkit/actions/scan@abb469f033ee28e00ba1061a47dddfc7d961129a
+    - if: github.event_name != 'pull_request'
+      uses: Hartmannlight/pipeline-toolkit/actions/publish@abb469f033ee28e00ba1061a47dddfc7d961129a
+      with:
+        image: ghcr.io/hartmannlight/portfolio
+        token: ${{ secrets.GITHUB_TOKEN }}
+    - if: always()
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+      with:
+        name: container-reports
+        path: artifacts/
+        retention-days: 14
+  maintenance-gate:
+    name: ci-gate
+    if: always()
     needs:
-      - checks
-      - docker
-    if: failure()
-
+    - validate
+    - container
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
     steps:
-      - name: Open or update failure issue
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const title = "Portfolio image rebuild failed";
-            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
-            const body = [
-              "The automated portfolio image rebuild failed.",
-              "",
-              `Workflow: ${context.workflow}`,
-              `Run: ${runUrl}`,
-              `Ref: ${context.ref}`,
-              `SHA: ${context.sha}`,
-              "",
-              "Check the workflow logs and rerun after fixing the issue."
-            ].join("\n");
-
-            const { data: issues } = await github.rest.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: "open"
-            });
-
-            const existing = issues.find((issue) => issue.title === title);
-
-            if (existing) {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: existing.number,
-                body
-              });
-            } else {
-              await github.rest.issues.create({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                title,
-                body
-              });
-            }
+    - name: Require every check
+      env:
+        RESULTS: ${{ toJSON(needs) }}
+      run: |
+        python3 - <<'PY'
+        import json, os
+        results = json.loads(os.environ['RESULTS'])
+        failed = {name: value['result'] for name, value in results.items() if value['result'] not in ('success',)}
+        if failed:
+            raise SystemExit(str(failed))
+        PY
