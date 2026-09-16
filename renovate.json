@@ -2,5 +2,16 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "github>Hartmannlight/pipeline-toolkit"
+  ],
+  "packageRules": [
+    {
+      "description": "Update the Go directive and compiler image together; builds use GOTOOLCHAIN=local.",
+      "matchPackageNames": [
+        "go",
+        "golang"
+      ],
+      "groupName": "Go toolchain",
+      "separateMajorMinor": false
+    }
   ]
 }
