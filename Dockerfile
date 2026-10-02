@@ -5,7 +5,7 @@ RUN go mod download
 COPY caddy-build/main.go ./
 RUN CGO_ENABLED=0 go build -mod=readonly -trimpath -ldflags="-s -w" -o /caddy .
 
-FROM caddy:2-alpine@sha256:6aeddd44c3078b0f9a35206472a11420648a79c184603ef95957d0a20044cb2b
+FROM caddy:2-alpine@sha256:881bbc60f9986d5ab8e7cfd6cf7e4ef3c9c0439fef2429d035d065577882f028
 RUN apk upgrade --no-cache
 COPY --from=builder /caddy /usr/bin/caddy
 
