@@ -2,7 +2,7 @@ module github.com/Hartmannlight/Portfolio/caddy-build
 
 go 1.27.1
 
-require github.com/caddyserver/caddy/v2 v2.11.5
+require github.com/caddyserver/caddy/v2 v2.11.6
 
 require (
 	cel.dev/cel-go v0.32.0 // indirect
